@@ -11,11 +11,17 @@ class App extends React.Component {
         this.state = {
             todoLists: [],
             todoList: null,
-            newTodo: ''
+
+            newTodoText: '',
+            newTodoList: ''
         }
     }
 
     componentDidMount() {
+        this.loadLists();
+    }
+
+    loadLists() {
         fetch('/todoList/', {
             method: 'GET'
         }).then(response => {
@@ -26,12 +32,10 @@ class App extends React.Component {
         });
     }
 
-
     saveTodo(event) {
-        console.log('saveTodo');
         event.preventDefault();
-        
-        if(this.state.newTodo) {
+
+        if(this.state.newTodoText) {
 
             fetch('/api/todo', {
                 method: 'POST',
@@ -40,7 +44,7 @@ class App extends React.Component {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
-                    name: this.state.newTodo,
+                    name: this.state.newTodoText,
                     complete: false,
                     todoList: {id: this.state.todoList.id}
                 })
@@ -51,9 +55,40 @@ class App extends React.Component {
             });
         }
     }
-    
-    newTodo(event) {
-        this.setState({ newTodo: event.target.value })
+
+    updateNewTodoText(event) {
+        this.setState({ newTodoText: event.target.value })
+    }
+
+    saveTodoList(event) {
+        event.preventDefault();
+
+        if(this.state.newTodoList) {
+
+            fetch('/todoList', {
+                method: 'POST',
+                headers: {
+                    Accept: 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    name: this.state.newTodoList
+                })
+            }).then(response =>  {
+                return response.json();
+            }).then(json => {
+
+                this.setState({newTodoList: ''});
+
+
+                this.loadLists();
+                this.loadList(json.id);
+            });
+        }
+    }
+
+    newTodoList(event) {
+        this.setState({ newTodoList: event.target.value })
     }
     
     loadList(id) {
@@ -103,14 +138,29 @@ class App extends React.Component {
 
         const selectList = this.selectList.bind(this);
         const toggleComplete = this.toggleComplete.bind(this);
+
         const saveTodo = this.saveTodo.bind(this);
-        const newTodo = this.newTodo.bind(this);
+        const updateNewTodoText = this.updateNewTodoText.bind(this);
+
+        const saveTodoList = this.saveTodoList.bind(this);
+        const newTodoList = this.newTodoList.bind(this);
         
         const todoList = this.state.todoList;
 
         return (<div className='todo-app'>
                 <div className='side-pane'>
                     <h2>Todo Lists</h2>
+
+                    <form className="addTodoList" onSubmit={ saveTodoList }>
+                        <input
+                            value={ this.state.newTodoList }
+                            type="text"
+                            placeholder="Enter new list..."
+                            onChange={ newTodoList }
+                        />
+                        <input type="submit" value="Save" />
+                    </form>
+
                     <ul>
                         { this.state.todoLists.map(
                             function (todoList) {
@@ -129,7 +179,8 @@ class App extends React.Component {
                         <TodoList name={ todoList.name }
                                   todos={ todoList.todos }
                                   toggleComplete={ toggleComplete }
-                                  newTodo={ newTodo }
+                                  newTodoText={ this.state.newTodoText }
+                                  updateNewTodoText = { updateNewTodoText }
                                   saveTodo= { saveTodo }/>
                         : null }
                 </div>

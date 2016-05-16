@@ -8,9 +8,10 @@ function TodoList(props) {
             <h2>{ props.name }</h2>
                 <form className="addTodo" onSubmit={ props.saveTodo }>
                     <input
+                        value={ props.newTodoText }
                         type="text"
                         placeholder="Enter new task..."
-                        onChange={props.newTodo}
+                        onChange={props.updateNewTodoText}
                     />
                     <input type="submit" value="Save" />
                 </form>
@@ -29,8 +30,9 @@ const {string, array, func} = React.PropTypes;
 TodoList.propTypes = {
     name: string,
     todos: array,
+    newTodoText: string,
     toggleComplete: func,
-    newTodo: func,
+    updateNewTodoText: func,
     saveTodo: func
 };
 

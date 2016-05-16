@@ -9,6 +9,7 @@ class Todo {
     Boolean complete = false
 
     static belongsTo = [list: TodoList]
+    static mapWith="mongo"
 
     static constraints = {
         name nullable: false

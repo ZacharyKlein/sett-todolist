@@ -8,6 +8,7 @@ class User {
     String name
 
     static hasMany = [ todoLists: TodoList]
+    static mapWith="mongo"
 
     static constraints = {
         name nullable: false

@@ -2,7 +2,7 @@ package com.ociweb
 
 import grails.rest.Resource
 
-@Resource(uri='/api/users', readOnly=true, formats=['json'])
+@Resource(uri='/users', readOnly=true, formats=['json'])
 class User {
 
     String name

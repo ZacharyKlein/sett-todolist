@@ -1,6 +1,3 @@
-/**
- * Created by zak on 5/13/16.
- */
 import React from 'react';
 import Todo from './todo'
 
@@ -12,8 +9,8 @@ function TodoList(props) {
             <p>{ props.user }</p>
 
             <ul>
-                { props.todos.map(function(todo) {
-                    return <Todo key={ todo.id } todo={ todo }/>;
+                { props.todos.sort((a, b) => b.id < a.id).map(function(todo) {
+                    return <Todo key={ todo.id } todo={ todo } toggleComplete={ props.toggleComplete } />;
                 })}
             </ul>
 
@@ -22,11 +19,12 @@ function TodoList(props) {
 }
 
 
-const {string, array} = React.PropTypes;
+const {string, array, func} = React.PropTypes;
 TodoList.propTypes = {
     name: string,
     todos: array,
-    user: string
+    user: string,
+    toggleComplete: func
 };
 
 export default TodoList;

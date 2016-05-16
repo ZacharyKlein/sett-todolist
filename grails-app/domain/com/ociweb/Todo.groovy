@@ -8,11 +8,11 @@ class Todo {
     String name
     Boolean complete = false
 
-    static belongsTo = [list: TodoList]
+    static belongsTo = [todoList: TodoList]
     static mapWith="mongo"
 
     static constraints = {
         name nullable: false
-        list nullable: false
+        todoList nullable: false
     }
 }

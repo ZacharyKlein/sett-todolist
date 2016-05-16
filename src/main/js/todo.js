@@ -5,20 +5,24 @@ import React from 'react';
 
 function Todo(props) {
 
+    const todo = props.todo;
+
     return(
         <li>
-            <span>{ props.todo.name }</span>
-            <input type = "checkbox" checked={ props.todo.completed ? 'checked' : '' } />
+            <input id={ todo.id } type="checkbox" checked={ todo.complete ? 'checked' : '' } onClick={ props.toggleComplete } />
+            <span>{ todo.name }</span>
         </li>
     );
 }
 
-const {shape, string, bool} = React.PropTypes;
+const {shape, number, string, bool, func} = React.PropTypes;
 Todo.propTypes = {
     todo: shape({
+        id: number.isRequired,
         name: string,
         completed: bool
-    })
+    }),
+    toggleComplete: func
 };
 
 export default Todo;

@@ -1,0 +1,19 @@
+.todo-app  {
+    font-family: sans-serif;
+    width: 640px;
+    min-height: 480px;
+    margin: 0 auto;
+    background-color: lavender;
+    padding: 20px;
+}
+
+.side-pane {
+    float: right;
+    background-color: lavenderblush;
+    padding: 0 20px;
+    border-radius: 10px;
+}
+
+.main {
+    float: left;
+}

@@ -95,3 +95,9 @@ processResources.dependsOn(['npmInstall', 'npm_run_bundle'])
 
 //Generate webpack bundle when packaging the app
 assetCompile.dependsOn(['npmInstall', 'npm_run_bundle'])
+
+//Generate webpack bundle on file changes
+task watch(dependsOn: ['npmInstall', 'npm_run_watch'])
+
+//Run React tests
+task mochaTest(dependsOn: ['npmInstall', 'npm_run_test'])

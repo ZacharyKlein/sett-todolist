@@ -2,7 +2,7 @@ package com.ociweb
 
 import grails.rest.Resource
 
-@Resource(uri='/todoList', formats=['json'])
+@Resource(uri='/api/todoList', formats=['json'])
 class TodoList {
 
     String name

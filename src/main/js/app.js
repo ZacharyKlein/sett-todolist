@@ -37,7 +37,7 @@ class App extends React.Component {
 
         if(this.state.newTodoText) {
 
-            fetch('/api/todo', {
+            fetch('/api/todos', {
                 method: 'POST',
                 headers: {
                     Accept: 'application/json',
@@ -65,7 +65,7 @@ class App extends React.Component {
 
         if(this.state.newTodoList) {
 
-            fetch('/todoList', {
+            fetch('/api/todoList', {
                 method: 'POST',
                 headers: {
                     Accept: 'application/json',
@@ -93,7 +93,7 @@ class App extends React.Component {
     
     loadList(id) {
 
-        fetch('/todoList/' + id, {
+        fetch('/api/todoList/' + id, {
             method: 'GET'
         }).then(response =>  {
             return response.json();
@@ -116,7 +116,7 @@ class App extends React.Component {
             console.log(todo);
             const toggledComplete = !todo.complete
 
-            fetch('/api/todo/' + event.target.id, {
+            fetch('/api/todos/' + event.target.id, {
                 method: 'PUT',
                 headers: {
                     Accept: 'application/json',
@@ -136,6 +136,8 @@ class App extends React.Component {
 
     render() {
 
+        //For a thorough explanation regarding the use bind() in Javascript and React, see this link:
+        //http://reactkungfu.com/2015/07/why-and-how-to-bind-methods-in-your-react-component-classes/
         const selectList = this.selectList.bind(this);
         const toggleComplete = this.toggleComplete.bind(this);
 

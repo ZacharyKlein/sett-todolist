@@ -9,7 +9,7 @@ function Todo(props) {
 
     return(
         <li>
-            <input id={ todo.id } type="checkbox" checked={ todo.complete ? 'checked' : '' } onClick={ props.toggleComplete } />
+            <input id={ todo.id } type="checkbox" checked={ todo.complete ? 'checked' : '' } onChange={ props.toggleComplete } />
             <span>{ todo.name }</span>
         </li>
     );

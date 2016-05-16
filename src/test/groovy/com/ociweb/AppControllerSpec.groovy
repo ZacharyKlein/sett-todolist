@@ -1,4 +1,4 @@
-package com.ociweb.com.ociweb
+package com.ociweb
 
 import grails.test.mixin.TestFor
 import spock.lang.Specification
@@ -7,7 +7,7 @@ import spock.lang.Specification
  * See the API for {@link grails.test.mixin.web.ControllerUnitTestMixin} for usage instructions
  */
 @TestFor(AppController)
-class TodoListAppControllerSpec extends Specification {
+class AppControllerSpec extends Specification {
 
     def setup() {
     }

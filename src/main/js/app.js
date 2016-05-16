@@ -10,7 +10,8 @@ class App extends React.Component {
 
         this.state = {
             todoLists: [],
-            todoList: null
+            todoList: null,
+            newTodo: ''
         }
     }
 
@@ -25,6 +26,36 @@ class App extends React.Component {
         });
     }
 
+
+    saveTodo(event) {
+        console.log('saveTodo');
+        event.preventDefault();
+        
+        if(this.state.newTodo) {
+
+            fetch('/api/todo', {
+                method: 'POST',
+                headers: {
+                    Accept: 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    name: this.state.newTodo,
+                    complete: false,
+                    todoList: {id: this.state.todoList.id}
+                })
+            }).then(response =>  {
+                return response.json();
+            }).then(json => {
+                this.loadList(json.todoList.id)
+            });
+        }
+    }
+    
+    newTodo(event) {
+        this.setState({ newTodo: event.target.value })
+    }
+    
     loadList(id) {
 
         fetch('/todoList/' + id, {
@@ -72,6 +103,9 @@ class App extends React.Component {
 
         const selectList = this.selectList.bind(this);
         const toggleComplete = this.toggleComplete.bind(this);
+        const saveTodo = this.saveTodo.bind(this);
+        const newTodo = this.newTodo.bind(this);
+        
         const todoList = this.state.todoList;
 
         return (<div className='todo-app'>
@@ -80,14 +114,24 @@ class App extends React.Component {
                     <ul>
                         { this.state.todoLists.map(
                             function (todoList) {
-                                return (<li key={ todoList.id }>{ todoList.name } <button id={ todoList.id } onClick={ selectList }>Select</button></li>);
+                                return (
+                                    <li key={ todoList.id }>
+                                        <button id={ todoList.id } onClick={ selectList }>Select</button>
+                                        { todoList.name }
+                                    </li>);
                             }) }
 
                     </ul>
                 </div>
 
                 <div className="main">
-                    { todoList ? <TodoList name={ todoList.name } todos={ todoList.todos } user={ todoList.user.name } toggleComplete={ toggleComplete } /> : null }
+                    { todoList ?
+                        <TodoList name={ todoList.name }
+                                  todos={ todoList.todos }
+                                  toggleComplete={ toggleComplete }
+                                  newTodo={ newTodo }
+                                  saveTodo= { saveTodo }/>
+                        : null }
                 </div>
             </div>
         );

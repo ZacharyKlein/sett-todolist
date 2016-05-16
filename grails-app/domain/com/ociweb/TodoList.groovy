@@ -8,7 +8,6 @@ class TodoList {
     String name
 
     static hasMany = [ todos: Todo ]
-    static belongsTo = [ user: User ]
     static mapWith="mongo"
 
     static constraints = {

@@ -51,6 +51,8 @@ class App extends React.Component {
             }).then(response =>  {
                 return response.json();
             }).then(json => {
+
+                this.setState({newTodoText: ''});
                 this.loadList(json.todoList.id)
             });
         }

@@ -20,7 +20,7 @@ Todo.propTypes = {
     todo: shape({
         id: number.isRequired,
         name: string,
-        completed: bool
+        complete: bool
     }),
     toggleComplete: func
 };

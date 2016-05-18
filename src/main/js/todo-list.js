@@ -16,8 +16,11 @@ function TodoList(props) {
                     <input type="submit" value="Save" />
                 </form>
             <ul>
-                { props.todos.sort((a, b) => a.id - b.id).map(function(todo) {
-                    return <Todo key={ todo.id } todo={ todo } toggleComplete={ props.toggleComplete } />;
+                { props.todos.sort((a, b) => a.id - b.id).map(
+                    function(todo) {
+                        return <Todo key={ todo.id } 
+                                     todo={ todo } 
+                                     toggleComplete={ props.toggleComplete } />;
                 })}
 
             </ul>

@@ -11,7 +11,6 @@ class TodoList {
     static mapWith="mongo"
 
     static constraints = {
-        name nullable: false
         todos nullable: true
     }
 

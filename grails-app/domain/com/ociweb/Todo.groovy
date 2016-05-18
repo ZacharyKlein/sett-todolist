@@ -10,9 +10,4 @@ class Todo {
 
     static belongsTo = [todoList: TodoList]
     static mapWith="mongo"
-
-    static constraints = {
-        name nullable: false
-        todoList nullable: false
-    }
 }
